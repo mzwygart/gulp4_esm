@@ -3,6 +3,7 @@ const pathDest = './public'
 
 export default {
   root: pathDest,
+  src: pathSrc,
 
   html: {
     src: pathSrc + '/html/**/*.html',

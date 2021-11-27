@@ -26,6 +26,9 @@ import css from './tasks/css.js'
 import js from './tasks/js.js'
 import img from './tasks/img.js'
 import font from './tasks/font.js'
+import { clearImgSprites, makeSprite } from './tasks/sprite.js'
+
+const sprite = $.gulp.series(clearImgSprites, makeSprite)
 
 const watcher = () => {
   $.gulp.watch($.path.html.watch, html)
@@ -58,6 +61,8 @@ export {
   watcher,
   build,
   dev,
+  sprite,
+  clearImgSprites,
 }
 
 export default $.app.isProd ? build : dev
