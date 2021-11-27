@@ -1,8 +1,8 @@
 import del from 'del'
 
-const clearImgSprites = (cb) => {
-  del($.path.src + '/img/sprite/')
-  del($.path.root + '/img/sprite/')
+const clearOldSprites = (cb) => {
+  del($.path.src + '/img/sprite/**')
+  del($.path.root + '/img/sprite/**')
   cb()
 }
 
@@ -12,9 +12,16 @@ const makeSprite = () => {
     .pipe(
       $.gp.svgSprite({
         mode: {
-          stack: {
-            sprite: '../sprite.svg', //sprite file name
+          dest: $.path.src + '/img/sprite/',
+          view: {
+            layout: 'vertical',
+            sprite: '../../../img/sprite/sprite.svg', //sprite file name
             example: true,
+            render: {
+              css: {
+                dest: './_sprite.css',
+              },
+            },
           },
         },
       })
@@ -23,4 +30,4 @@ const makeSprite = () => {
     .pipe($.gulp.dest($.path.root + '/img/sprite'))
 }
 
-export { makeSprite, clearImgSprites }
+export { makeSprite, clearOldSprites }

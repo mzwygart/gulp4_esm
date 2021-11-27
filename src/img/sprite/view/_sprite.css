@@ -1,0 +1,18 @@
+.svg-add {
+	background: url("../../../img/sprite/sprite-dfd2a333.svg") 0 0 no-repeat;
+}
+
+.svg-add-dims {
+	width: 32px;
+	height: 32px;
+}
+
+.svg-cart {
+	background: url("../../../img/sprite/sprite-dfd2a333.svg") 0 100% no-repeat;
+}
+
+.svg-cart-dims {
+	width: 24px;
+	height: 24px;
+}
+
