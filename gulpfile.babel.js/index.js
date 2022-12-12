@@ -27,6 +27,7 @@ import js from './tasks/js.js'
 import img from './tasks/img.js'
 import font from './tasks/font.js'
 import { clearOldSprites, makeSprite } from './tasks/sprite.js'
+import staticFiles from './tasks/staticFiles.js'
 
 const sprite = $.gulp.series(clearOldSprites, makeSprite)
 
@@ -36,12 +37,12 @@ const watcher = () => {
   $.gulp.watch($.path.js.watch, js)
   $.gulp.watch($.path.img.watch, img)
   $.gulp.watch($.path.font.watch, font)
+  $.gulp.watch($.path.staticFiles.watch, staticFiles)
 }
 
 const build = $.gulp.series(
   clear,
-  $.gulp.parallel(html, scss, js, img),
-  $.gulp.parallel(server, watcher)
+  $.gulp.parallel(html, scss, js, img, staticFiles)
 )
 
 const dev = $.gulp.series(build, $.gulp.parallel(server, watcher))

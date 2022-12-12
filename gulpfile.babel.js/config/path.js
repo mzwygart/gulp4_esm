@@ -46,4 +46,10 @@ export default {
     watch: pathSrc + '/fonts/**/*.{eot,ttf,otf,otc,ttc,woff,woff2,svg}',
     dest: pathDest + '/fonts',
   },
+
+  staticFiles: {
+    src: pathSrc + '/static/**/*',
+    watch: pathSrc + '/static/**/*',
+    dest: pathDest,
+  },
 }
