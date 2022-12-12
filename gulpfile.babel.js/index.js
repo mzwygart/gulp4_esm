@@ -1,6 +1,6 @@
 import gulp from 'gulp'
-import path from './config/path.js'
-import app from './config/app.js'
+import path from './config.js'
+import app from './app/index.js'
 import browserSync from 'browser-sync'
 import gulpLoadPlugins from 'gulp-load-plugins'
 
@@ -19,17 +19,17 @@ global.$ = {
 /* ---------------------------------- Tasks --------------------------------- */
 import clear from './tasks/clear.js'
 import html from './tasks/html.js'
-import pug from './tasks/pug.js'
+//import pug from './tasks/pug.js'
 import server from './tasks/server.js'
 import scss from './tasks/scss.js'
-import css from './tasks/css.js'
+//import css from './tasks/css.js'
 import js from './tasks/js.js'
 import img from './tasks/img.js'
 import font from './tasks/font.js'
-import { clearOldSprites, makeSprite } from './tasks/sprite.js'
+//import { clearOldSprites, makeSprite } from './tasks/sprite.js'
 import staticFiles from './tasks/staticFiles.js'
 
-const sprite = $.gulp.series(clearOldSprites, makeSprite)
+//const sprite = $.gulp.series(clearOldSprites, makeSprite)
 
 const watcher = () => {
   $.gulp.watch($.path.html.watch, html)
@@ -51,19 +51,19 @@ const dev = $.gulp.series(build, $.gulp.parallel(server, watcher))
 
 export {
   html,
-  pug,
+  //pug,
   clear,
   font,
   img,
-  css,
+  //css,
   scss,
   server,
   js,
   watcher,
   build,
   dev,
-  sprite,
-  clearOldSprites,
+  //sprite,
+  //clearOldSprites,
 }
 
 export default $.app.isProd ? build : dev

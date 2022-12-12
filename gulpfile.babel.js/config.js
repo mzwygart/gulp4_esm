@@ -1,9 +1,46 @@
 const pathSrc = './src'
 const pathDest = './public'
+const isProd = process.argv.includes('--production')
+const isDev = !process.argv.includes('--production')
 
 export default {
   root: pathDest,
   src: pathSrc,
+
+  webpack: {
+    mode: isProd ? 'production' : 'development',
+    entry: {
+      main: pathSrc + '/js/main.js',
+    },
+    output: {
+      filename: '[name].bundle.js',
+    },
+    module: {
+      rules: [
+        {
+          test: /\.m?js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [['@babel/preset-env', { targets: 'defaults' }]],
+            },
+          },
+        },
+      ],
+    },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          commons: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+          },
+        },
+      },
+    },
+  },
 
   html: {
     src: pathSrc + '/html/**/*.html',
