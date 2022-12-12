@@ -1,92 +1,70 @@
 const pathSrc = './src'
 const pathDest = './public'
+
 const isProd = process.argv.includes('--production')
 const isDev = !process.argv.includes('--production')
 
 export default {
-  root: pathDest,
-  src: pathSrc,
+  isProd,
+  isDev,
+  htmlmin: { collapseWhitespace: isProd },
+  imagemin: {
+    verbose: true,
+  },
+  fonter: {
+    formats: ['ttf', 'woff', 'eot', 'svg'],
+  },
+  rename: { suffix: '.min' },
+  path: {
+    root: pathDest,
+    src: pathSrc,
 
-  webpack: {
-    mode: isProd ? 'production' : 'development',
-    entry: {
-      main: pathSrc + '/js/main.js',
+    html: {
+      src: pathSrc + '/html/**/*.html',
+      watch: pathSrc + '/html/**/*.html',
+      dest: pathDest,
     },
-    output: {
-      filename: '[name].bundle.js',
+
+    pug: {
+      src: pathSrc + '/pug/**/*.html',
+      watch: pathSrc + '/pug/**/*.html',
+      dest: pathDest,
     },
-    module: {
-      rules: [
-        {
-          test: /\.m?js$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: [['@babel/preset-env', { targets: 'defaults' }]],
-            },
-          },
-        },
-      ],
+
+    css: {
+      src: pathSrc + '/css/**/*.css',
+      watch: pathSrc + '/css/**/*.css',
+      dest: pathDest + '/css',
     },
-    optimization: {
-      splitChunks: {
-        cacheGroups: {
-          commons: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-          },
-        },
-      },
+
+    scss: {
+      src: pathSrc + '/scss/**/*.{sass,scss}',
+      watch: pathSrc + '/scss/**/*.{sass,scss}',
+      dest: pathDest + '/css',
     },
-  },
 
-  html: {
-    src: pathSrc + '/html/**/*.html',
-    watch: pathSrc + '/html/**/*.html',
-    dest: pathDest,
-  },
+    js: {
+      src: pathSrc + '/js/**/*.js',
+      watch: pathSrc + '/js/**/*.js',
+      dest: pathDest + '/js',
+    },
 
-  pug: {
-    src: pathSrc + '/pug/**/*.html',
-    watch: pathSrc + '/pug/**/*.html',
-    dest: pathDest,
-  },
+    img: {
+      src: pathSrc + '/img/**/*.{png,jpg,jpeg,gif,svg}',
+      watch: pathSrc + '/img/**/*.{png,jpg,jpeg,gif,svg}',
+      dest: pathDest + '/img',
+    },
 
-  css: {
-    src: pathSrc + '/css/**/*.css',
-    watch: pathSrc + '/css/**/*.css',
-    dest: pathDest + '/css',
-  },
+    font: {
+      src: pathSrc + '/fonts/**/*.{eot,ttf,otf,otc,ttc,woff,woff2,svg}',
+      watch: pathSrc + '/fonts/**/*.{eot,ttf,otf,otc,ttc,woff,woff2,svg}',
+      dest: pathDest + '/fonts',
+    },
 
-  scss: {
-    src: pathSrc + '/scss/**/*.{sass,scss}',
-    watch: pathSrc + '/scss/**/*.{sass,scss}',
-    dest: pathDest + '/css',
-  },
-
-  js: {
-    src: pathSrc + '/js/**/*.js',
-    watch: pathSrc + '/js/**/*.js',
-    dest: pathDest + '/js',
-  },
-
-  img: {
-    src: pathSrc + '/img/**/*.{png,jpg,jpeg,gif,svg}',
-    watch: pathSrc + '/img/**/*.{png,jpg,jpeg,gif,svg}',
-    dest: pathDest + '/img',
-  },
-
-  font: {
-    src: pathSrc + '/fonts/**/*.{eot,ttf,otf,otc,ttc,woff,woff2,svg}',
-    watch: pathSrc + '/fonts/**/*.{eot,ttf,otf,otc,ttc,woff,woff2,svg}',
-    dest: pathDest + '/fonts',
-  },
-
-  staticFiles: {
-    src: pathSrc + '/static/**/*',
-    watch: pathSrc + '/static/**/*',
-    dest: pathDest,
-  },
+    staticFiles: {
+      src: pathSrc + '/static/**/*',
+      watch: pathSrc + '/static/**/*',
+      dest: pathDest,
+    },
+  }
 }
